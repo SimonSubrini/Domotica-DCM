@@ -1,0 +1,16 @@
+{
+  "Escritura":{
+      "Id": {
+          "001": {
+              "Tipo": "Luces", "Intensidad": [255,0,120], "Consumo": 1550},
+          "002": {
+              "Tipo": "Motores", "Temperatura": 25, "Consumo": 1550}
+      }},
+  "Lectura":{
+      "Id": {
+          "001": {
+              "Tipo": "Luces", "Intensidad": [255,0,120], "Consumo": 1550},
+          "002": {
+              "Tipo": "Motores", "Temperatura": 25, "Consumo": 1550}
+      }}
+}

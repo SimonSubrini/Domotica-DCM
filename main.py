@@ -1,4 +1,5 @@
 import time
+import json
 from machine import Pin
 import LibWifi
 import Functions
@@ -26,7 +27,6 @@ def ConnectWifi():
         WIFI_SSID = Redes[i].split('"')[1]
         WIFI_PW = Redes[i].split('"')[3]
         if LibWifi.connect_wifi(WIFI_SSID, WIFI_PW) == 1:
-            print('Conectado a la red: {}'.format(WIFI_SSID))
             break
 
 
@@ -39,13 +39,15 @@ def ConnectFirebase():
 
     firebase.setURL("https://" + Firebase_ID + ".firebaseio.com/")
 
-    firebase.put('Bool', False)
-    firebase.put('Str', 'Simon')
-    firebase.put('Int', 18)
-    firebase.put('Float', 10.25)
-    firebase.put('Strs', 'Hola')
+    # firebase.put('Bool', False)
+    # firebase.put('Str', 'Simon')
+    # firebase.put('Int', 18)
+    # firebase.put('Float', 10.25)
+    # firebase.put('Strs', 'Hola')
 
 
 Config()
 while 1:
-    pass
+    with open('./Structure.json') as file_object:
+        Structure = json.load(file_object)
+    firebase.put("Dispositivos", Structure)

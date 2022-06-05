@@ -32,6 +32,20 @@ hacerlo desde el software "Thonny", para eso, seguir estos pasos:
     - Para ver la consola, una vez subido el programa hay que ir a "Tools->MicroPython->MicroPython REPL"
 
 
+--------------------------------------- Archivos privados ---------------------------------------
+--- Wifi_Pass:
+El archivo Wifi_Pass.txt puede contener la cantidad de redes Wifi que se deseen, estritas con el siguiente formato:
+WIFI_SSID = "Nombre de la red 1"
+WIFI_PW = "Contraseña de la red 1"
+
+WIFI_SSID = "Nombre de la red 2"
+WIFI_PW = "Contraseña de la red 2"
+
+--- Firebase_Pass:
+El archivo Firebase_Pass.txt debe contener los valores ID y AUTH de la base de datos a la que se desea conectar,
+Siguiendo con el formato:
+Firebase_ID = "ID"
+Firebase_Auth = "AUTH"
 
 
 
