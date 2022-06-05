@@ -1,0 +1,47 @@
+
+--------------------------------------- Flashear NodeMCU ---------------------------------------
+
+Realizar todos los pasos en la consola (CMD)
+
+1) instalar esptool:
+pip install esptool
+
+2) Borrar flash:
+C:\Users\simon\ESP8266 Firmware>esptool.py --port COM3 erase_flash
+
+3) Instalación de firmware:
+C:\Users\simon\ESP8266 Firmware>esptool.py --port COM3 --baud 115200 write_flash --flash_size=detect 0 esp8266-20210902-v1.17
+
+Observaciones:
+- En "COM3" seleccionar el puerto al que está conectado el NodeMCU
+- En "esp8266-20210902-v1.17" poner la versión de MicroPython que se desea instalar
+- En "C:\Users\simon\ESP8266 Firmware" poner la carpeta en la que se haya descargado el firmware de MicroPython
+
+--------------------------------------- Subir un código a la placa NodeMCU ---------------------------------------
+
+De momento, desde "Pycharm" solo pude subir el archivo main.py a la placa, para subir otros modulos, tengo que
+hacerlo desde el software "Thonny", para eso, seguir estos pasos:
+
+- Desconectar la placa NodeMCU
+- Abrir los archivos de los modulos (.py)
+- Conectar la placa NodeMCU
+- Apretar el botón de "STOP" del menú de "Thonny"
+- Por cada módulo ir a "Fichero->Guardar como" y guardarlo con el mismo nombre del módulo, incluyendo el ".py"
+- Por último subir el main desde "Pycharm"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
