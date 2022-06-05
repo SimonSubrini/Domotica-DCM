@@ -30,6 +30,7 @@ hacerlo desde el software "Thonny", para eso, seguir estos pasos:
 - Por último subir el main desde "Pycharm"
     - Para eso hay que desconectar y reconectar el micro y después apretar el botón de "PLAY" o Mayus+F10 en "Pycharm"
     - Para ver la consola, una vez subido el programa hay que ir a "Tools->MicroPython->MicroPython REPL"
+    - Una vez en la consola, hay que hacer "ctrl+D" para que se realice un soft reboot y que inicie correctamente el codigo
 
 
 --------------------------------------- Archivos privados ---------------------------------------

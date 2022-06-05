@@ -1,16 +1,31 @@
 {
-  "Escritura":{
-      "Id": {
-          "001": {
-              "Tipo": "Luces", "Intensidad": [255,0,120], "Consumo": 1550},
-          "002": {
-              "Tipo": "Motores", "Temperatura": 25, "Consumo": 1550}
-      }},
-  "Lectura":{
-      "Id": {
-          "001": {
-              "Tipo": "Luces", "Intensidad": [255,0,120], "Consumo": 1550},
-          "002": {
-              "Tipo": "Motores", "Temperatura": 25, "Consumo": 1550}
-      }}
-}
+  "Id": {
+    "001": {
+      "Tipo": "Luces",
+      "Lectura": {
+        "Intensidad_Deseada": [
+          255,
+          0,
+          120
+        ]
+      },
+      "Escritura": {
+        "Consumo": 1550,
+        "Intensidad_Actual": [
+          255,
+          0,
+          120
+        ]
+      }
+    },
+    "002": {
+      "Tipo": "Ventiladores",
+      "Lectura": {
+        "Temp_Deseada": 25.5
+      },
+      "Escritura": {
+        "Consumo": 1550,
+        "Temp_Actual": 23
+      }
+    }
+  }
