@@ -28,6 +28,10 @@ hacerlo desde el software "Thonny", para eso, seguir estos pasos:
 - Apretar el botón de "STOP" del menú de "Thonny"
 - Por cada módulo ir a "Fichero->Guardar como" y guardarlo con el mismo nombre del módulo, incluyendo el ".py"
 - Por último subir el main desde "Pycharm"
+    - Para eso hay que desconectar y reconectar el micro y después apretar el botón de "PLAY" o Mayus+F10 en "Pycharm"
+    - Para ver la consola, una vez subido el programa hay que ir a "Tools->MicroPython->MicroPython REPL"
+
+
 
 
 

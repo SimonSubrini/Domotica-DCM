@@ -1,7 +1,29 @@
+"""
+Esta librería es similar a la que se encuentra en el repositorio:
+https://github.com/ckoever/micropython-firebase-realtime-database/blob/main/README.md
+
+pero la modifique para que no utilice el modulo "_thread" que permitia que se ejecuten acciones
+en segundo plano, para modificarla elimine la linea que incluia al módulo y elimine a la variable "bg" que
+era la que indicaba cuando se utilizaba dicho módulo.
+
+Por ejemplo, cambie esta instrucción:
+
+def put(PATH, DATA, bg=True, id=0, cb=None):
+    if bg:
+        _thread.start_new_thread(INTERNAL.put, [PATH, ujson.dumps(DATA), str(id), cb])
+    else:
+        INTERNAL.put(PATH, ujson.dumps(DATA), str(id), cb)
+
+Por esta otra:
+
+def put(PATH, DATA, id=0, cb=None):
+    INTERNAL.put(PATH, ujson.dumps(DATA), str(id), cb)
+
+"""
+
 import ujson
 import usocket
 import ussl
-import _thread
 import time
 
 
