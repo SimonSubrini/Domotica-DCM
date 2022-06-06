@@ -3,28 +3,28 @@
     "Tipo": "Luces",
     "Lectura": {
       "Intensidad_Deseada": [
-        255,
         0,
-        120
+        0,
+        0
       ]
     },
     "Escritura": {
-      "Consumo": 1550,
+      "Consumo": 0,
       "Intensidad_Actual": [
-        255,
         0,
-        120
+        0,
+        0
       ]
     }
   },
   "Ventiladores": {
     "Tipo": "Ventiladores",
     "Lectura": {
-      "Temp_Deseada": 25.5
+      "Temp_Deseada": 0
     },
     "Escritura": {
-      "Consumo": 1550,
-      "Temp_Actual": 23
+      "Consumo": 0,
+      "Temp_Actual": 0
     }
   }
 }
