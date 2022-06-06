@@ -43,25 +43,24 @@ def ConnectFirebase():
 
 def CreateSlave(Slaves):
     if len(Slaves) == 0:
-        Slaves = [Slave()]
-        Slaves[0].Create(Cant_Slaves,Type)
+        Slaves = [Slave(Cant_Slaves, Type)]
     else:
-        Slaves.append(Slave())
-        Slaves[len(Slaves)].Create(Cant_Slaves,Type)
+        Slaves.append(Slave(Cant_Slaves, Type))
 
 
 class Slave:
-    def __init__(self):
-        self.__Address = 0
-        self.__Consumption = 0  # En KW/H
-        self.__Type = ""
-
-    def Create(self, NewAddress, NewType):
-        self.__Address = NewAddress
-        self.__Type = NewType
+    def __init__(self, Address=0, Type=""):
+        self.__Address = Address
+        self.__Type = Type
+        self.__Consumption = 0  # En KW/
         print('Nuevo esclavo creado\n'
               'Dirección: {}\n'
               'Tipo: {}'.format(self.__Address, self.__Type))
+        if Type == "Luces":
+            Struct = {Cant_Slaves: Structure["Luces"]}
+        elif Type == "Ventiladores":
+            Struct = {Cant_Slaves: Structure["Ventiladores"]}
+        firebase.patch("Dispositivos/Address", Struct)
 
     def ChangeConsumption(self, NewConsumption):
         self.__Consumption = NewConsumption
@@ -78,9 +77,8 @@ class Slave:
 
 
 Config()
-# with open('./Structure.json') as file_object:
-#     Structure = json.load(file_object)
-# firebase.put("Dispositivos", Structure)
+with open('./Structure.json') as file_object:
+    Structure = json.load(file_object)
 
 while 1:
     if Button.value() == 1:
@@ -91,39 +89,6 @@ while 1:
         else:
             Type = "Ventiladores"
         CreateSlave(Slaves)
-        # if Cant_Slaves / 2 == round(Cant_Slaves / 2, 0):
-        #     # tipo luces
-        #     Struct = {Cant_Slaves: {
-        #         "Tipo": "Luces",
-        #         "Lectura": {
-        #             "Intensidad_Deseada": [
-        #                 255,
-        #                 0,
-        #                 120
-        #             ]
-        #         },
-        #         "Escritura": {
-        #             "Consumo": 1550,
-        #             "Intensidad_Actual": [
-        #                 255,
-        #                 0,
-        #                 120
-        #             ]
-        #         }
-        #     }}
-        # else:
-        #     # tipo ventiladores
-        #     Struct = {Cant_Slaves: {
-        #         "Tipo": "Ventiladores",
-        #         "Lectura": {
-        #             "Temp_Deseada": 25.5
-        #         },
-        #         "Escritura": {
-        #             "Consumo": 1550,
-        #             "Temp_Actual": 23
-        #         }
-        #     }}
-        # firebase.patch("Dispositivos/Address", Struct)
 
     led.value(not led.value())
     time.sleep_ms(500)

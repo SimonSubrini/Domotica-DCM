@@ -1,31 +1,30 @@
 {
-  "Id": {
-    "001": {
-      "Tipo": "Luces",
-      "Lectura": {
-        "Intensidad_Deseada": [
-          255,
-          0,
-          120
-        ]
-      },
-      "Escritura": {
-        "Consumo": 1550,
-        "Intensidad_Actual": [
-          255,
-          0,
-          120
-        ]
-      }
+  "Luces": {
+    "Tipo": "Luces",
+    "Lectura": {
+      "Intensidad_Deseada": [
+        255,
+        0,
+        120
+      ]
     },
-    "002": {
-      "Tipo": "Ventiladores",
-      "Lectura": {
-        "Temp_Deseada": 25.5
-      },
-      "Escritura": {
-        "Consumo": 1550,
-        "Temp_Actual": 23
-      }
+    "Escritura": {
+      "Consumo": 1550,
+      "Intensidad_Actual": [
+        255,
+        0,
+        120
+      ]
+    }
+  },
+  "Ventiladores": {
+    "Tipo": "Ventiladores",
+    "Lectura": {
+      "Temp_Deseada": 25.5
+    },
+    "Escritura": {
+      "Consumo": 1550,
+      "Temp_Actual": 23
     }
   }
+}
