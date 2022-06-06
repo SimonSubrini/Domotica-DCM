@@ -60,11 +60,47 @@ class Slave:
 
 
 Config()
-with open('./Structure.json') as file_object:
-    Structure = json.load(file_object)
-firebase.put("Dispositivos", Structure)
+# with open('./Structure.json') as file_object:
+#     Structure = json.load(file_object)
+# firebase.put("Dispositivos", Structure)
 
 while 1:
-    print('Estado boton: {}'.format(Button.value()))
+    if Button.value() == 1:
+        Cant_Slaves += 1
+        print('Boton activado, Creando al escavo {}'.format(Cant_Slaves))
+        if Cant_Slaves / 2 == round(Cant_Slaves / 2, 0):
+            # tipo luces
+            Struct = {Cant_Slaves: {
+                    "Tipo": "Luces",
+                    "Lectura": {
+                        "Intensidad_Deseada": [
+                            255,
+                            0,
+                            120
+                        ]
+                    },
+                    "Escritura": {
+                        "Consumo": 1550,
+                        "Intensidad_Actual": [
+                            255,
+                            0,
+                            120
+                        ]
+                    }
+                }}
+        else:
+            # tipo ventiladores
+            Struct = {Cant_Slaves: {
+                    "Tipo": "Ventiladores",
+                    "Lectura": {
+                        "Temp_Deseada": 25.5
+                    },
+                    "Escritura": {
+                        "Consumo": 1550,
+                        "Temp_Actual": 23
+                    }
+                }}
+        firebase.patch("Dispositivos/Id", Struct)
+
     led.value(not led.value())
     time.sleep_ms(500)
