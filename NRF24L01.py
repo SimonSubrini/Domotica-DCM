@@ -1,7 +1,7 @@
 import machine
 from machine import Pin
 import nrf24
-
+ 
 
 def initNrf24(ce_pin, csn_pin, address, channel=0, payload_size=8):
     """
