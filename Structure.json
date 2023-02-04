@@ -1,14 +1,14 @@
 {
   "Luces": {
     "Tipo": "Luces",
-    "Lectura": {
+    "Ordenes": {
       "Intensidad_Deseada": [
         0,
         0,
         0
       ]
     },
-    "Escritura": {
+    "Informacion": {
       "Consumo": 0,
       "Intensidad_Actual": [
         0,
@@ -19,10 +19,10 @@
   },
   "Ventiladores": {
     "Tipo": "Ventiladores",
-    "Lectura": {
+    "Ordenes": {
       "Temp_Deseada": 0
     },
-    "Escritura": {
+    "Informacion": {
       "Consumo": 0,
       "Temp_Actual": 0
     }

@@ -33,6 +33,14 @@ hacerlo desde el software "Thonny", para eso, seguir estos pasos:
     - Una vez en la consola, hay que hacer "ctrl+D" para que se realice un soft reboot y que inicie correctamente el codigo
 
 
+Para subir el main.py desde Pycharm:
+
+- Desconectar la placa NodeMCU
+- Hacer chick en "play" (triangulo verde)
+- Una vez que aparece "Soft reboot" en el apartado "Run"
+- Ir a Tools -> MicroPython -> MicroPython REPL
+- Hacer Ctrl+D
+
 --------------------------------------- Archivos privados ---------------------------------------
 --- Wifi_Pass:
 El archivo Wifi_Pass.txt puede contener la cantidad de redes Wifi que se deseen, estritas con el siguiente formato:
