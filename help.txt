@@ -41,6 +41,13 @@ Para subir el main.py desde Pycharm:
 - Ir a Tools -> MicroPython -> MicroPython REPL
 - Hacer Ctrl+D
 
+Observación:
+En caso de que el micro se conecte a otro puerto COM, aparecera el error "device is busy --
+can't perform this action now. Please wait or cancel current work and try again", ante eso,
+en Thonny: Herramientas -> Opciones -> Port or WebREPL -> Seleccionar COM correcto
+en Pycharm: File -> Settings - Languages and Frameworks -> Micropython -> Seleccionar COM correcto
+
+
 --------------------------------------- Archivos privados ---------------------------------------
 --- Wifi_Pass:
 El archivo Wifi_Pass.txt puede contener la cantidad de redes Wifi que se deseen, estritas con el siguiente formato:

@@ -1,59 +1,49 @@
-"""
---------------------------------------------------------------------------------------------------------------------------------------------------
-
-Revisar el archivo "Leer--Proximos pasos" de la carpeta D:\Simon\Programacion\MicroPython\Firebase_V2 para ver como continuar
-
---------------------------------------------------------------------------------------------------------------------------------------------------
-"""
-
 import time
 import json
-
-# import pandas as pd
-from machine import Pin
+from machine import Pin, SPI
+from LibNrf24l01 import NRF24
 import LibWifi
-import NRF24L01
-import Functions
 import ufirebase as firebase
 
-# Inicialización de variables
-""" 
-Cuando utilice el modulo "machine" el número correspondiente a cada pin
-lo tengo que sacar de la imagen "NodeMcu-PinOut". Estos números aparecen
-como "GPIO"+Número
-"""
+# Configuración de pines
 led = Pin(2, Pin.OUT)
 Button = Pin(16, Pin.IN)
-Cant_Slaves = 0
+ce_pin = Pin(4, Pin.OUT)  # Pin CE, debe estar conectado al pin CE del módulo NRF24L01.
+csn_pin = Pin(5, Pin.OUT)  # Pin CSN, debe estar conectado al pin CSN del módulo NRF24L01.
+
+# Inicialización de variables
 ListSlaves = []
-nrf24Module=[]
+nrf24Module = []
 
 
-# ------------------------------------------------------------------------- Configuración -------------------------------------------------------------------------
-
-def Config():
-    ConnectWifi()
-    ConnectFirebase()
-    ConnectNRF24L01()
+def config():
+    init_wifi()
+    init_firebase()
 
 
-def ConnectNRF24L01():
-    global nrf24Module
-    nrf24Module = NRF24L01.initNrf24(15, 16, b'00000')
+# Inicialización de la radio NRF24L01
+def init_nrf24l01():
+    spi = SPI(1, baudrate=1000000, polarity=0, phase=0)
+    nrf = NRF24(Pin(4, Pin.OUT), spi)
+    nrf.open_tx_pipe(b'\x01\x02\x03\x04\x05')
+    nrf.open_rx_pipe(1, b'\x01\x02\x03\x04\x05')
+    nrf.start_listening()
+    return nrf
 
 
-def ConnectWifi():
+# Inicialización de la conexión Wi-Fi
+def init_wifi():
     with open('./Wifi_Pass.txt', 'rt', encoding='utf-8') as file:
         Wifi_Pass = file.read()
     Redes = Wifi_Pass.split('\r\n\r\n')
-    for i in range(len(Redes)):
-        WIFI_SSID = Redes[i].split('"')[1]
-        WIFI_PW = Redes[i].split('"')[3]
+    for red in Redes:
+        WIFI_SSID = red.split('"')[1]
+        WIFI_PW = red.split('"')[3]
         if LibWifi.connect_wifi(WIFI_SSID, WIFI_PW) == 1:
             break
 
 
-def ConnectFirebase():
+def init_firebase():
     with open('./Firebase_Pass.txt', 'rt', encoding='utf-8') as file:
         FireBase_Pass = file.read()
     Firebase_ID = FireBase_Pass.split('"')[1]
@@ -61,11 +51,7 @@ def ConnectFirebase():
     firebase.setURL("https://" + Firebase_ID + ".firebaseio.com/")
 
 
-# ------------------------------------------------------------------------- Esclavos -------------------------------------------------------------------------
-
 def CreateSlave(Type):
-    # Slaves = GetSlaves()
-
     if Type == "Luces":
         ListSlaves.append(SlLuces(Cant_Slaves))
     elif Type == "Ventiladores":
@@ -120,20 +106,20 @@ class SlVentiladores(Slave):
         firebase.patch("Dispositivos/Address", self.Struct)
 
 
-# ------------------------------------------------------------------------- Main Code -------------------------------------------------------------------------
+# Main
 
-Config()
+config()
+nrf = init_nrf24l01()
+
 with open('./Structure.json') as file_object:
     Structure = json.load(file_object)
+Cant_Slaves = 0
 
-while 1:
-    print('Enviando numeros...')
-    for i in range(10):
-        NRF24L01.sendData(nrf24Module, i, b'11011')
-
-    i = 0
-    while i < 5:
-        i += 1
+while True:
+    for i in range(5): # testeo de nrf24l01 y firebase
+        message = b'Hello123'
+        nrf.send(message)
+        print("Mensaje enviado:", message)
         if Button.value() == 1:
             Cant_Slaves += 1
             print('\nBotón activado, Creando al esclavo {}'.format(Cant_Slaves))
@@ -142,50 +128,4 @@ while 1:
             else:
                 Type = "Ventiladores"
             CreateSlave(Type)
-
-    # Modificando parametros...
-    ListSlaves[0].ChangeWParameters({
-        "Consumo": 150
-    })
-    ListSlaves[0].ChangeRParameters({
-        "Temp_Deseada": 30
-    })
-
-    ListSlaves[1].ChangeWParameters({
-        "Intensidad_Actual": [
-            255,
-            50,
-            10
-        ]
-    })
-    ListSlaves[1].ChangeRParameters({
-        "Intensidad_Deseada": [
-            150,
-            250,
-            70
-        ]
-    })
-    ListSlaves[3].ChangeWParameters({
-        "Consumo": 10,
-        "Intensidad_Actual": [
-            0,
-            0,
-            0
-        ]
-    })
-    ListSlaves[3].ChangeRParameters({
-        "Intensidad_Deseada": [
-            0,
-            0,
-            0
-        ]
-    })
-    print(
-        "----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
-    print("Descripciones: ")
-    for slave in ListSlaves:
-        print(slave.Description())
-    print(
-        "----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
-    print(ListSlaves[3])
     break
